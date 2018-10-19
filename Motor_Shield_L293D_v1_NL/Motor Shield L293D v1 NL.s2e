@@ -1,0 +1,138 @@
+{
+	"extensionName": "Motor Shield L293D",
+	"description": "An Extension for Arduino Motor Shield L293D v1 NL",
+	"version": "1.0",
+	"author": "Wesley van der velde(info@edunica.nl)",
+	"homepage": "http://www.mblock.cc",
+	"sort":0,
+	"javascriptURL":"js/Motor_Shield_L293D_v1_NL.js",
+  	"firmware":"1.0",
+  	"extensionPort":0,
+	"blockSpecs": [
+
+		[
+			"w",
+			"Zet motor %d.motor aan. Draai richting %d.direction met snelheid %d.speed (80-255)",
+			"motorRun",
+			"1",
+			"Vooruit",
+			"200",
+			{
+				"setup":"",
+				"inc":"#include \"AFMotor.h\"",
+				"def":"AF_DCMotor motor{0}({0});\n",
+				"work":"motor{0}.setSpeed({2});\n motor{0}.run({1});\n",
+				"loop":""
+			}
+		],
+
+		[
+			"w",
+			"Ga %n.seconds seconde naar %d.2_motor_direction met snelheid %d.speed (80-255)",
+			"RobotRun",
+			"1",
+			"voren",
+			"200",
+			{
+				"setup":"",
+				"inc":"#include \"AFMotor.h\"",
+				"def":"AF_DCMotor motor1(1);\n AF_DCMotor motor2(2);\n",
+				"work":"motor1.setSpeed({2});\n motor1.run({1});\n motor2.setSpeed({2});\n motor2.run({1});\n _delay({0});\n motor1.setSpeed(0);\n motor1.run(RELEASE);\n motor2.setSpeed(0);\n motor2.run(RELEASE);\n",
+				"loop":""
+			}
+		],
+
+		[
+			"w",
+			"Ga %n.seconds seconde naar RECHTS met snelheid %d.speed (80-255)",
+			"RobotRunRight",
+			"1",
+			"200",
+			{
+				"setup":"",
+				"inc":"#include \"AFMotor.h\"",
+				"def":"AF_DCMotor motor1(1);\n AF_DCMotor motor2(2);\n",
+				"work":"motor1.setSpeed({1});\n motor1.run(1);\n motor2.setSpeed({1}/2);\n motor2.run(2);\n _delay({0});\n motor1.setSpeed(0);\n motor1.run(RELEASE);\n motor2.setSpeed(0);\n motor2.run(RELEASE);\n",
+				"loop":""
+			}
+		],
+
+		[
+			"w",
+			"Ga %n.seconds seconde naar LINKS met snelheid %d.speed (80-255)",
+			"RobotRunLeft",
+			"1",
+			"200",
+			{
+				"setup":"",
+				"inc":"#include \"AFMotor.h\"",
+				"def":"AF_DCMotor motor1(1);\n AF_DCMotor motor2(2);\n",
+				"work":"motor1.setSpeed({1}/2);\n motor1.run(2);\n motor2.setSpeed({1});\n motor2.run(1);\n _delay({0});\n motor1.setSpeed(0);\n motor1.run(RELEASE);\n motor2.setSpeed(0);\n motor2.run(RELEASE);\n",
+				"loop":""
+			}
+		],
+
+		[
+			"w",
+			"Stop motor %d.motor",
+			"motorStop",
+			"1",
+			{
+				"setup":"",
+				"inc":"#include \"AFMotor.h\"",
+				"def":"AF_DCMotor motor{0}({0});\n",
+				"work":"motor{0}.setSpeed(0);\n motor{0}.run(RELEASE);\n",
+				"loop":""
+			}
+		],
+
+		[
+			"b",
+			"Knop op pin %m.pinNumber is ingedrukt (NC)",
+			"digitalreadNC",
+			"9",
+			{
+				"setup":"pinMode({0}, INPUT);\n",
+				"inc":"",
+				"def":"",
+				"work":"!digitalRead({0})",
+				"loop":""
+			}
+		],
+
+		[
+			"b",
+			"Knop op pin %m.pinNumber is ingedrukt (NO)",
+			"digitalreadNO",
+			"9",
+			{
+				"setup":"pinMode({0}, INPUT);\n",
+				"inc":"",
+				"def":"",
+				"work":"digitalRead({0})",
+				"loop":""
+			}
+		]
+
+	],
+
+	"menus": {
+		"speed":[100,150,200,255],
+		"motor":[1, 2, 3, 4],
+		"direction":["Vooruit","Achteruit"],
+		"2_motor_direction":["voren","achteren"],
+		"2_motor_Left_right":["links","rechts"],
+		"pinNumber":[9,10]
+	},
+
+	"values":{
+		"Vooruit":1,
+		"Achteruit":2,
+		"voren":1,
+		"achteren":2
+	},
+
+
+	"translators":{
+	}
+}
