@@ -1,7 +1,7 @@
 {
 	"extensionName": "Motor Shield L293D",
 	"description": "An Extension for Arduino Motor Shield L293D v1 NL",
-	"version": "1.0",
+	"version": "1.1",
 	"author": "Wesley van der velde(info@edunica.nl)",
 	"homepage": "http://www.mblock.cc",
 	"sort":0,
@@ -12,10 +12,10 @@
 
 		[
 			"w",
-			"Zet motor %d.motor aan. Draai richting %d.direction met snelheid %d.speed (80-255)",
+			"Turn motor %d.motor on. Run the motor %d.direction with the following speed %d.speed (80-255)",
 			"motorRun",
 			"1",
-			"Vooruit",
+			"Forward",
 			"200",
 			{
 				"setup":"",
@@ -28,23 +28,36 @@
 
 		[
 			"w",
-			"Ga %n.seconds seconde naar %d.2_motor_direction met snelheid %d.speed (80-255)",
-			"RobotRun",
+			"Run FORWARD for %n.seconds seconds with speed %d.speed (80-255)",
+			"RobotRunForward",
 			"1",
-			"voren",
 			"200",
 			{
 				"setup":"",
 				"inc":"#include \"AFMotor.h\"",
 				"def":"AF_DCMotor motor1(1);\n AF_DCMotor motor2(2);\n",
-				"work":"motor1.setSpeed({2});\n motor1.run({1});\n motor2.setSpeed({2});\n motor2.run({1});\n _delay({0});\n motor1.setSpeed(0);\n motor1.run(RELEASE);\n motor2.setSpeed(0);\n motor2.run(RELEASE);\n",
+				"work":"motor1.setSpeed({1});\n motor1.run(1);\n motor2.setSpeed({1});\n motor2.run(1);\n _delay({0});\n motor1.setSpeed(0);\n motor1.run(RELEASE);\n motor2.setSpeed(0);\n motor2.run(RELEASE);\n",
+				"loop":""
+			}
+		],
+		[
+			"w",
+			"Run BACKWARD for %n.seconds seconds with speed %d.speed (80-255)",
+			"RobotRunBackward",
+			"1",
+			"200",
+			{
+				"setup":"",
+				"inc":"#include \"AFMotor.h\"",
+				"def":"AF_DCMotor motor1(1);\n AF_DCMotor motor2(2);\n",
+				"work":"motor1.setSpeed({1});\n motor1.run(2);\n motor2.setSpeed({1});\n motor2.run(2);\n _delay({0});\n motor1.setSpeed(0);\n motor1.run(RELEASE);\n motor2.setSpeed(0);\n motor2.run(RELEASE);\n",
 				"loop":""
 			}
 		],
 
 		[
 			"w",
-			"Ga %n.seconds seconde naar RECHTS met snelheid %d.speed (80-255)",
+			"Run RIGHT for %n.seconds seconds with speed %d.speed (80-255)",
 			"RobotRunRight",
 			"1",
 			"200",
@@ -59,7 +72,7 @@
 
 		[
 			"w",
-			"Ga %n.seconds seconde naar LINKS met snelheid %d.speed (80-255)",
+			"Run LEFT for %n.seconds seconds with speed %d.speed (80-255)",
 			"RobotRunLeft",
 			"1",
 			"200",
@@ -88,7 +101,7 @@
 
 		[
 			"b",
-			"Knop op pin %m.pinNumber is ingedrukt (NC)",
+			"Button is pressed on pin %m.pinNumber (NC)",
 			"digitalreadNC",
 			"9",
 			{
@@ -102,7 +115,7 @@
 
 		[
 			"b",
-			"Knop op pin %m.pinNumber is ingedrukt (NO)",
+			"Button is pressed on pin %m.pinNumber (NO)",
 			"digitalreadNO",
 			"9",
 			{
@@ -119,20 +132,28 @@
 	"menus": {
 		"speed":[100,150,200,255],
 		"motor":[1, 2, 3, 4],
-		"direction":["Vooruit","Achteruit"],
-		"2_motor_direction":["voren","achteren"],
-		"2_motor_Left_right":["links","rechts"],
+		"direction":["Forward","Backward"],
 		"pinNumber":[9,10]
 	},
 
 	"values":{
-		"Vooruit":1,
-		"Achteruit":2,
-		"voren":1,
-		"achteren":2
+		"Forward":1,
+		"Backward":2,
 	},
 
 
 	"translators":{
+		"nl_NL":{
+			"Turn motor %d.motor on. Run the motor %d.direction with the following speed %d.speed (80-255)":"Zet motor %d.motor aan. Draai richting %d.direction met snelheid %d.speed (80-255)",
+			"Forward":"Vooruit",
+			"Backward":"Achteruit",
+			"Stop motor %d.motor":"Zet motor %d.motor uit",
+			"Run FORWARD for %n.seconds seconds with speed %d.speed (80-255)":"Ga %n.seconds seconden naar VOREN met snelheid %d.speed (80-255)",
+			"Run BACKWARD for %n.seconds seconds with speed %d.speed (80-255)":"Ga %n.seconds seconden naar ACHTEREN met snelheid %d.speed (80-255)",
+			"Run LEFT for %n.seconds seconds with speed %d.speed (80-255)":"Ga %n.seconds seconden naar LINKS met snelheid %d.speed (80-255)",
+			"Run RIGHT for %n.seconds seconds with speed %d.speed (80-255)":"Ga %n.seconds seconden naar RECHTS met snelheid %d.speed (80-255)",
+			"Button is pressed on pin %m.pinNumber (NC)":"Knop op pin %m.pinNumber is ingedrukt (NC)",
+			"Button is pressed on pin %m.pinNumber (NO)":"Knop op pin %m.pinNumber is ingedrukt (NO)",
+		}
 	}
 }
